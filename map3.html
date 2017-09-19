@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Untitled Document</title>
+<script src="js/jquery-1.11.3.js"></script>
+<style type="text/css">
+	 
+#stage {
+		width: 100%;
+		height: 100%;
+	}
+
+#CA { 
+	/*transform-origin: 517px 484px;*/
+		fill: #000;
+
+
+}
+
+[id$=A] { /* Any element with an id that ends in "O" */
+	transform: scale(0.5, 0.5);
+	fill: #333;
+
+}
+
+#USmap {width: 100%;}
+
+#USmap > g:hover [id$=A] {
+	transform: scale(1, 1);
+}
+
+@keyframes pop {
+	0% { 
+		opacity: 0;
+	}
+	50% { 
+		opacity: 1;
+	}
+	100% { 
+		opacity: 0.5;
+	}
+}
+
+.selected { 
+	animation: pop 0.5s ease-in-out; 
+	fill: #0f0;
+
+}
+
+.blue {fill:#0000ff;}
+
+
+
+</style>
+</head>
+
+<body>
+
+<script>
+
+$("document").ready(function() {
+
+	$("#stage").load('usMap.svg',function(response){
+
+		$(this).addClass("svgLoaded");
+		
+		if(!response){
+			alert("Error loading SVG!");
+			// Make absolutely sure you are running this on a web server or localhost!
+		}
+
+        $('path').click(function(){
+            //this.style.fill = "#00ffff";
+        });
+
+		$("#CA").click(function() {
+		    alert("CA");
+		    // CAN'T USE THIS JQUERY this.toggleClass("selected");
+	    });
+
+
+		$('#NY').click(function() {
+		    if ($('#NY').attr('class') == ('blue')) {alert('blue'); $('#NY').attr('class', '');}
+		    else {$('#NY').attr('class', 'blue');}
+	    });
+
+
+	});
+
+
+
+
+
+});
+
+</script>
+
+<div id="stage"></div>
+
+
+
+</body>
+</html>
