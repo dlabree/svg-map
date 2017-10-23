@@ -2,33 +2,35 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Untitled Document</title>
+<title>US map with territories</title>
 <script src="js/jquery-1.11.3.js"></script>
 <style type="text/css">
-	 
+
+body {
+	margin:0;
+    background-color: #369;
+    font-family: open sans, helvetica, arial, sans-serif;
+}	 
 #stage {
 		width: 100%;
 		height: 100%;
 	}
 
 #CA { 
-	/*transform-origin: 517px 484px;*/
-		fill: #000;
-
-
+	/*transform-origin: 517px 484px;
+		fill: #000;*/
 }
 
-[id$=A] { /* Any element with an id that ends in "O" */
-	transform: scale(0.5, 0.5);
+/* any element that ends with specified character
+[id$=A] { 
+	fill: #903;
+}
+
+#USmap > g [id$=A]:hover {
 	fill: #333;
-
-}
+}*/
 
 #USmap {width: 100%;}
-
-#USmap > g:hover [id$=A] {
-	transform: scale(1, 1);
-}
 
 @keyframes pop {
 	0% { 
@@ -45,11 +47,30 @@
 .selected { 
 	animation: pop 0.5s ease-in-out; 
 	fill: #0f0;
-
 }
 
 .blue {fill:#0000ff;}
 
+#stateInfo {
+	background-color:#fff;
+	color:#036;
+	width:50%; 
+	height:30%;
+	position: absolute;
+	top:5%;
+	left:25%;
+	padding:20px;
+	border-radius:10px;
+	opacity: 0.9;
+}
+ .hide {display:none;}
+ .closeBtn {background-color: #006; color: #fff; font-weight:bold; padding:5px; border-radius:5px;}
+
+ h1 {
+ 	color:#fff;
+ 	font-family: open sans, helvetica, arial, sans-serif;
+ 	margin-left:40px;
+}
 
 
 </style>
@@ -75,20 +96,26 @@ $("document").ready(function() {
         });
 
 		$("#CA").click(function() {
-		    alert("CA");
+		    $(this).addClass("selected");
 		    // CAN'T USE THIS JQUERY this.toggleClass("selected");
 	    });
 
 
-		$('#NY').click(function() {
-		    if ($('#NY').attr('class') == ('blue')) {alert('blue'); $('#NY').attr('class', '');}
-		    else {$('#NY').attr('class', 'blue');}
+		$('#states path').click(function() {
+		    if ($('#stateInfo').attr('class') == ('')) {
+		    	//$('#NY').attr('class', ''); 
+		    	$('#stateInfo').attr('class', 'hide');
+		    	//console.log($(this).attr('id'));
+		    }
+		    else { 
+		        $('#stateInfo').attr('class', '');}
+		    	$('#onState').html($(this).attr('id'));
 	    });
-
+		$('.closeBtn').click(function() {
+		    	$('#stateInfo').attr('class', 'hide');
+		    });
 
 	});
-
-
 
 
 
@@ -96,7 +123,10 @@ $("document").ready(function() {
 
 </script>
 
+<h1>It's a map!</h1>
 <div id="stage"></div>
+<div id="stateInfo" class="hide"><p><span id="onState"></span> State Info</p>
+<p><a href="javascript:void(0)" class="closeBtn">Close</a></p></div>
 
 
 
